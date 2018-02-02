@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  gateway:
+    hostname: ca-gateway
+    image: lnlscon/epics-ca-gateway:base-3.15-debian-9-test
+    env_file:
+      -  /home/gciotto/repository/docker-pvgateway/lnls-ca-gateway.env
+    networks:
+      - outside
+
+networks:
+  outside:
+    external:
+      name: "host"
