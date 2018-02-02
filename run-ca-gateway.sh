@@ -1,17 +1,26 @@
 #!/bin/bash
 
-# Verifies if the environment variables are defined and starts ca gateway.
+cd /tmp/epics-dev/
 
+# Source environment variables
+. ./env-vars.sh
+
+# Source EPICS variables
+. ./bash.bashrc.local
+
+OPTS=""
+
+# Verifies if the environment variables are defined and starts ca gateway.
 if [ -v CA_GATEWAY_SIP ]; then
-    OPTS=$OPTS:" -sip ${CA_GATEWAY_SIP}"
+    OPTS="$OPTS  -sip ${CA_GATEWAY_SIP}"
 fi 
 
 if [ -v CA_GATEWAY_SIGNORE ]; then
-    OPTS=$OPTS:" -signore ${CA_GATEWAY_SIGNORE}"
+    OPTS="$OPTS -signore ${CA_GATEWAY_SIGNORE}"
 fi 
 
 if [ -v CA_GATEWAY_CIP ]; then
-    OPTS=$OPTS:" -cip ${CA_GATEWAY_CIP}"
+    OPTS="$OPTS -cip ${CA_GATEWAY_CIP}"
 fi 
 
 set -x
