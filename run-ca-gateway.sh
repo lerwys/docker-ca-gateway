@@ -13,15 +13,29 @@ OPTS=""
 # Verifies if the environment variables are defined and starts ca gateway.
 if [ -v CA_GATEWAY_SIP ]; then
     OPTS="$OPTS  -sip ${CA_GATEWAY_SIP}"
-fi 
+fi
 
 if [ -v CA_GATEWAY_SIGNORE ]; then
     OPTS="$OPTS -signore ${CA_GATEWAY_SIGNORE}"
-fi 
+fi
+
+CIP_ADDRESSES=""
+CIP_IOCS = $(env | grep "IOC_.*")
 
 if [ -v CA_GATEWAY_CIP ]; then
-    OPTS="$OPTS -cip ${CA_GATEWAY_CIP}"
-fi 
+    CIP_ADDRESSES="$CIP_ADDRESSES ${CA_GATEWAY_CIP}"
+fi
+
+for IOC in ${CIP_IOCS}
+do
+    if [[ ! $CIP_ADDRESSES = *"${IOC}"* ]]; then
+        CIP_ADDRESSES="$CIP_ADDRESSES $IOC"
+    fi
+done
+
+if [ -v CIP_ADDRESSES ]; then
+    OPTS="$OPTS -cip ${CIP_ADDRESSES}"
+fi
 
 set -x
 
