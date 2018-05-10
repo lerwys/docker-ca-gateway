@@ -37,7 +37,9 @@ if [ -v CIP_ADDRESSES ]; then
     OPTS="$OPTS -cip \"${CIP_ADDRESSES}\""
 fi
 
-OPTS="${OPTS} ${EXTRA_OPTS}"
+if [ -v ACCESS_FILE ]; then
+    OPTS="$OPTS -access \"${ACCESS_FILE}\""
+fi
 
 set -x
 
