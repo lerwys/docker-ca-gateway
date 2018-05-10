@@ -37,6 +37,8 @@ if [ -v CIP_ADDRESSES ]; then
     OPTS="$OPTS -cip \"${CIP_ADDRESSES}\""
 fi
 
+OPTS="${OPTS} ${EXTRA_OPTS}"
+
 set -x
 
 sh -c "${CA_GATEWAY_PATH}/bin/${EPICS_HOST_ARCH}/gateway ${OPTS}"
